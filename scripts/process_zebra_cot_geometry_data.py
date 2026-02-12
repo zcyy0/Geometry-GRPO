@@ -245,6 +245,13 @@ def main():
             row = json.loads(line)
             total += 1
 
+            # Clean image tags from Question field
+            question = row.get("Question", "")
+            question = question.replace("<image_start>[problem_image_1]<image_end>", "")
+            # Collapse any resulting double whitespace / leading-trailing spaces
+            question = " ".join(question.split())
+            row["Question"] = question
+
             final_answer_raw = row.get("Final Answer", "")
 
             # Step 1: extract math expression from text

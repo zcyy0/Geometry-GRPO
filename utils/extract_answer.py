@@ -171,7 +171,8 @@ _MATH_SYMBOLS = [
 
 # English trailing units to strip (longest first to avoid partial matches)
 _ENGLISH_UNITS_RE = re.compile(
-    r'\s*(?:square\s+units|cubic\s+units|inches|inch|feet|foot|centimeters|meters|cm|units?)\s*$',
+    r'\s*(?:square\s+units|cubic\s+units|inches|inch|feet|foot|centimeters|meters'
+    r'|degrees?|cm[²³]?|m[²³]?|mm|km|units?)\s*$',
     re.IGNORECASE,
 )
 
@@ -255,20 +256,29 @@ def normalize_answer_comprehensive(answer: str) -> str:
     if not s:
         return s
 
-    # 2. Unwrap $...$
+    # 2. Unwrap $...$  and \[...\] display math delimiters
     if s.startswith('$') and s.endswith('$') and len(s) > 1:
         s = s[1:-1].strip()
+    if s.startswith('\\[') and s.endswith('\\]'):
+        s = s[2:-2].strip()
 
     # 3. RHS after last '='
     s = _extract_rhs(s)
+
+    # 3b. RHS after \approx (e.g. "3\pi \approx 9.42" → "9.42")
+    if '\\approx' in s:
+        parts = s.split('\\approx')
+        rhs = parts[-1].strip()
+        if rhs:
+            s = rhs
 
     # 4. Multiple-choice
     mc_match = re.fullmatch(r'\(?([A-Da-d])\)?\.?', s.strip())
     if mc_match:
         return f'${mc_match.group(1).upper()}$'
 
-    # 5. Remove \text{...} (usually units like \text{ feet})
-    s = re.sub(r'\\text\s*\{[^}]*\}', '', s)
+    # 5. Remove \text{...} and any trailing exponent (e.g. \text{ cm}^2, \text{ m}^{2})
+    s = re.sub(r'\\text\s*\{[^}]*\}(?:\^(?:\{[^}]*\}|\d))?', '', s)
 
     # 6. Normalise degree markers → ^{\circ}
     s = s.replace("°", "^{\\circ}")
@@ -411,3 +421,123 @@ def extract_model_answer(response: str) -> tuple[str | None, str]:
 
     # ── Case 3: No </answer> tag at all ──
     return None, "no_answer_tag"
+
+
+# ─── Verification ────────────────────────────────────────────────────────────
+
+
+def main():
+    json_path = Path(__file__).resolve().parent.parent / "data" / "vlaa_thinking_raw" / "geoqa" / "geoqa_open_preview.json"
+    if not json_path.exists():
+        print(f"JSON file not found: {json_path}")
+        return
+
+    with open(json_path) as f:
+        data = json.load(f)
+
+    # Collect unique non-numeric answers
+    non_numeric = set()
+    for entry in data:
+        ans = str(entry.get("extracted_answer", ""))
+        if ans and not re.match(r"^-?\d+\.?\d*$", ans):
+            non_numeric.add(ans)
+
+    unique = sorted(non_numeric)
+    print(f"Total entries: {len(data)}")
+    print(f"Unique non-numeric answers: {len(unique)}")
+    print(f"{'─' * 80}")
+
+    # Categorize changes
+    changed = []
+    unchanged = []
+    for ans in unique:
+        result = normalize_geoqa_ground_truth(ans)
+        if result != f"${ans}$":
+            changed.append((ans, result))
+        else:
+            unchanged.append((ans, result))
+
+    print(f"\nChanged ({len(changed)}):")
+    print(f"{'─' * 80}")
+    for orig, norm in changed:
+        print(f"  {orig!r:45s} → {norm}")
+
+    print(f"\nUnchanged / trivially wrapped ({len(unchanged)}):")
+    print(f"{'─' * 80}")
+    for orig, norm in unchanged[:30]:
+        print(f"  {orig!r:45s} → {norm}")
+    if len(unchanged) > 30:
+        print(f"  ... and {len(unchanged) - 30} more")
+
+    # Validation: check all results are $...$-wrapped
+    print(f"\n{'─' * 80}")
+    all_results = [(a, normalize_geoqa_ground_truth(a)) for a in unique]
+    bad = [(a, r) for a, r in all_results if not (r.startswith("$") and r.endswith("$"))]
+    if bad:
+        print(f"ERROR: {len(bad)} results not $-wrapped:")
+        for a, r in bad:
+            print(f"  {a!r} → {r!r}")
+    else:
+        print(f"All {len(all_results)} results are properly $...$-wrapped.")
+
+    # Spot-check key patterns
+    print(f"\n{'─' * 80}")
+    print("Spot checks:")
+    spot_checks = [
+        ("30°", "$30^{\\circ}$"),
+        ("2√{3}", "$2\\sqrt{3}$"),
+        ("2π", "$2\\pi$"),
+        ("10cm", "$10$"),
+        ("C: 30°", "$30^{\\circ}$"),
+        ("cosA＝0.8", "$\\cos A=0.8$"),
+        ("4≤OM≤5", "$4\\leq OM\\leq 5$"),
+        ("55^○^", "$55^{\\circ}$"),
+        ("55度或125度", "$55$"),
+        ("1：2", "$1:2$"),
+        ("notenoughinformation", "$notenoughinformation$"),
+        ("l", "$l$"),
+        ("3S", "$3S$"),
+        ("a+b=90", "$a+b=90$"),
+        ("6tan15°cm", "$6\\tan 15^{\\circ}$"),
+        ("\\frac{16√{3}}{3}", "$\\frac{16\\sqrt{3}}{3}$"),
+        ("2√{3}cπ", "$2\\sqrt{3}\\pi$"),
+        ("2000π(cm^{2})", "$2000\\pi$"),
+        ("15.0√{3米}", "$15.0\\sqrt{3}$"),
+        ("2,22.5°", "$2,22.5^{\\circ}$"),
+        ("1.5×π", "$1.5\\pi$"),
+        ("\\angle8\\cong\\angle2", "$\\angle8\\cong\\angle2$"),
+        ("4\\sqrt2", "$4\\sqrt{2}$"),
+        ("4\\sqrt5\\pi", "$4\\sqrt{5}\\pi$"),
+        ("9\\sqrt2\\pi", "$9\\sqrt{2}\\pi$"),
+        ("π", "$\\pi$"),
+        ("√{5}π", "$\\sqrt{5}\\pi$"),
+        ("20a", "$20a$"),
+        ("\\frac{1}{2}π", "$\\frac{1}{2}\\pi$"),
+        ("0.5π", "$0.5\\pi$"),
+        ("10\\pi\\sqrt{2}", "$10\\pi\\sqrt{2}$"),
+        ("3㎝", "$3$"),
+        ("60°或120°", "$60^{\\circ}$"),
+        ("1厘米", "$1$"),
+        ("5:12", "$5:12$"),
+        ("\\frac{√3}{2}", "$\\frac{\\sqrt{3}}{2}$"),
+        ("√2", "$\\sqrt{2}$"),
+        ("0.5√{3}", "$0.5\\sqrt{3}$"),
+        ("(2-√{3})米", "$(2-\\sqrt{3})$"),
+    ]
+    pass_count = 0
+    fail_count = 0
+    for inp, expected in spot_checks:
+        got = normalize_geoqa_ground_truth(inp)
+        status = "PASS" if got == expected else "FAIL"
+        if status == "FAIL":
+            fail_count += 1
+            print(f"  {status}: {inp!r:35s} → {got!r}")
+            print(f"         expected: {expected!r}")
+        else:
+            pass_count += 1
+            print(f"  {status}: {inp!r:35s} → {got}")
+    print(f"\n  {pass_count}/{pass_count + fail_count} spot checks passed.")
+
+
+if __name__ == "__main__":
+    main()

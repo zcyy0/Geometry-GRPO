@@ -20,7 +20,7 @@ $$
 
 Future Work: Transition to Dense Process Rewards. Move from format-checking to logic-checking by implementing a heuristic that verifies intermediate steps inside the `<think>` block.
 
-### Project Structure
+## Project Structure
 ```bash
 ├── train/
 │   ├── train_grpo.py       # Main training loop using TRL

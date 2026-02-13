@@ -4,7 +4,10 @@
 ![Stack](https://img.shields.io/badge/Tech-TRL_%7C_VLLM_%7C_LoRA-blue)
 ![Model](https://img.shields.io/badge/Base_Model-Qwen_2.5_VL_3B-green)
 
-This repo studies how **GRPO (Group Relative Policy Optimization)** with verifiable reward can improve **visual geometry reasoning** in **Qwen2.5-VL-3B-Instruct**.
+## 📌 Project Overview
+This project implements **GRPO (Group Relative Policy Optimization)** with verifiable reward to improve **visual geometry reasoning** in **Qwen2.5-VL-3B-Instruct**. The training pipeline is built using **HuggingFace TRL**, **LoRA** for efficient parameter tuning, and **VLLM** for high-throughput rollout generation.
+**Target Benchmark:** [MathVision](https://huggingface.co/datasets/mathvision/mathvision)
+**Training Data:** [VLAA-Thinking GeoQA and Synthesis subset](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) and [Zebra CoT Geometry subset] https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT
 - **Benchmark:** MathVision
 - **Model:** Qwen2.5-VL-3B-Instruct 
 - **Training dataset:**

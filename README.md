@@ -20,14 +20,8 @@ The goal is to bootstrap the model's reasoning capabilities by strictly enforcin
 
 ### The Reward Function
 To penalize "shortcut learning" (guessing without reasoning) while maintaining training stability, I implemented a hierarchical reward function.
-$$
-R(y) = 
-\begin{cases} 
-1.0 & \text{if Correct Answer AND Strict Format} \\
-0.1 & \text{if Incorrect Answer BUT Strict Format} \\
-0.0 & \text{if Incorrect Answer}
-\end{cases}
-$$
+
+R(y) = 1.0 if if Correct Answer AND Strict Format; 0.1 if Incorrect Answer BUT Strict Format; 0.0 otherwise
 
 ---
 

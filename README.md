@@ -45,9 +45,9 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 * **Normalization:** Converted VLAA-GeoQA's multiple-choice format `(A/B/C/D)` into open-form expressions.
 * **Math Standardization:** Normalized all ground truth values to standard LaTeX math expressions using `math_verify` equivalence checks.
 * **Difficulty Stratification:** Classified samples into 3 tiers based on reasoning length and ground-truth complexity:
-    * **Tier 1 (Easy):** Direct application of formulas.
-    * **Tier 2 (Medium):** Multi-step deduction.
-    * **Tier 3 (Hard):** Complex visual grounding required.
+    * **Tier 1 (Easy):** Bottom 30% difficulty
+    * **Tier 2 (Medium):** 30%-70% difficulty
+    * **Tier 3 (Hard):** Top 30% difficulty
 
 ### Project Structure
 ```bash
@@ -56,7 +56,8 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 ├── scripts/
 │   ├── build_splits.py         # Stratified splitting (Train: 5k, Dev: 300, Test: 1k)
 │   ├── process_geoqa_data.py   # Multiple-choice to Open-ended conversion
-│   └── process_zebra_cot.py    # Geometry dataset cleaning
+│   └── process_zebra_cot_geometry_data.py    # Geometry dataset cleaning
+│   └── process_synthesis_data.py
 ├── utils/
 │   └── extract_answer.py       # Regex logic for answer extraction & normalization
 └── README.md

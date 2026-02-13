@@ -20,9 +20,6 @@ The goal is to bootstrap the model's reasoning capabilities by strictly enforcin
 
 ### The Reward Function
 To penalize "shortcut learning" (guessing without reasoning) while maintaining training stability, I implemented a hierarchical reward function.
-
-*(Note: If LaTeX does not render, please view in a compatible markdown viewer)*
-
 $$
 R(y) = 
 \begin{cases} 

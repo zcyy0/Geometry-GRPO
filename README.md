@@ -26,8 +26,8 @@ To penalize "shortcut learning" (guessing without reasoning) while maintaining t
 $$
 R(y) = 
 \begin{cases} 
-1.0 & \text{if Correct Answer AND Strict Format (<think> tags present)} \\
-0.5 & \text{if Correct Answer BUT missing <think> tags} \\
+1.0 & \text{if Correct Answer AND Strict Format} \\
+0.5 & \text{if Correct Answer BUT missing \<think\> tags} \\
 0.0 & \text{if Incorrect Answer}
 \end{cases}
 $$

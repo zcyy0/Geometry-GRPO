@@ -1,9 +1,4 @@
 # Visual Chain-of-Thought Reasoning with Qwen2.5-VL and GRPO
-
-![Status](https://img.shields.io/badge/Status-Training_In_Progress-yellow)
-![Stack](https://img.shields.io/badge/Tech-TRL_%7C_VLLM_%7C_LoRA-blue)
-![Model](https://img.shields.io/badge/Base_Model-Qwen_2.5_VL_3B-green)
-
 ## 📌 Project Overview
 This project implements **GRPO (Group Relative Policy Optimization)** with verifiable reward to improve **visual geometry reasoning** in **Qwen2.5-VL-3B-Instruct**. The training pipeline is built using **HuggingFace TRL**, **LoRA** for efficient parameter tuning, and **VLLM** for high-throughput rollout generation.
 

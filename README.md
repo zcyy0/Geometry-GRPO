@@ -10,7 +10,7 @@ This project implements **Group Relative Policy Optimization (GRPO)** to enhance
 Unlike standard fine-tuning, this pipeline uses Reinforcement Learning (RL) to enforce verifiable "Chain of Thought" (CoT) reasoning. The training system leverages **HuggingFace TRL** for the RL loop, **LoRA** for parameter-efficient tuning, and **VLLM** for high-throughput generation during the exploration phase.
 
 **Target Benchmark:** [MathVision](https://huggingface.co/datasets/mathvision/mathvision)  
-**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [Zebra CoT Geometry](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT)
+**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [Zebra CoT Geometry](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT) & [OlympiadBench](https://huggingface.co/datasets/lmms-lab/OlympiadBench)
 
 ---
 
@@ -31,7 +31,7 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 ### Data Processing Pipeline
 * **Normalization:** Converted VLAA-GeoQA's multiple-choice format `(A/B/C/D)` into open-form expressions.
 * **Math Standardization:** Normalized all ground truth values to standard LaTeX math expressions using `math_verify` equivalence checks.
-* **Difficulty Stratification:** Classified samples into 3 tiers based on reasoning length and ground-truth complexity:
+* **Difficulty Stratification:** Classified VLAA and Zebra-COT examples into 3 tiers based on reasoning length and ground-truth complexity:
     * **Tier 1 (Easy):** Bottom 30% difficulty
     * **Tier 2 (Medium):** 30%-70% difficulty
     * **Tier 3 (Hard):** Top 30% difficulty

@@ -122,6 +122,8 @@ Consider the given figure, where AB is parallel to CD, and CE bisects angle ACD.
 The model states that "since AB \parallel CD, angle BEC = angle ECD = 36 degrees". Clearly this is wrong. 
 
 The sampled problems above show the limitations of Qwen-2.5-VL-3B model, when doing mathematical reasoning, it fails to correctly identify the relationships in the geometry images and starts to hallucinate. 
+The next step would be to to Supervised Fine Tuning on the model using geometry problems with reasoning steps that include visual grounding. For example, the reasoning steps should describe the spatial relationship between angles and lines, and reasoning strictly based on the relationships it observes. This forces the model to stop hallucination. 
+
 
 
 

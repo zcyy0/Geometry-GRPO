@@ -124,6 +124,9 @@ The model states that "since AB \parallel CD, angle BEC = angle ECD = 36 degrees
 The sampled problems above show the limitations of Qwen-2.5-VL-3B model, when doing mathematical reasoning, it fails to correctly identify the relationships in the geometry images and starts to hallucinate. 
 
 #### Pattern 2: Lack of knowledge
+- Sample problem 1:
+
+- Sample problem 2: 
 
 ## Next Step: Supervised Finetuning
 Because the model lacks the visual grounding when doing reasoning, more GRPO or RL won't help. I think the next step is to do Supervised Finetuning on the model using geometry problems with reasoning steps that include visual grounding. For example, the reasoning steps should describe the spatial relationship between angles and lines, and conduct matheamtical reasoning strictly based on the visual observations. One approach is to use a more advanced model, input geoqa images and questions and ask the model to output reasoning steps following the structure such as "<see> what it observes </see><theorem> mathematical theorems to use </theorem> <think> the reasoning process </think><answer> the answer here </answer>"

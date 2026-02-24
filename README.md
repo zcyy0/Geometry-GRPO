@@ -59,19 +59,20 @@ Weights and Bias charts on rewards of the three phases:
 At the end of each phase, the model is evaluated on 300 validation examples. The results are as following:
 | Metric | Phase 1| Phase 2| Phase 3|
 | :--- | :---: | :---: | :---: |
-| **Accuracy** | 89.4% | **91.2%** | 90.1% |
-| **Parse success rate** | 0.245 | 0.210 | **0.198** |
-| **Average completion length** | 50 | 42 | 45 |
-| **reward_by_source/geoqa** | 1e-4 | 5e-5 | 1e-4 |
-| **accuracy/geoqa/difficulty 1** | 32 | 32 | 64 |
-| **accuracy/geoqa/difficulty 2** | 32 | 32 | 64 |
-| **accuracy/geoqa/difficulty 3** | 32 | 32 | 64 |
-| **accuracy/synthesis/difficulty 1** | 32 | 32 | 64 |
-| **accuracy/synthesis/difficulty 2** | 32 | 32 | 64 |
-| **accuracy/synthesis/difficulty 3** | 32 | 32 | 64 |
-| **accuracy/geoqa/difficulty 1** | 32 | 32 | 64 |
-| **accuracy/geoqa/difficulty 2** | 32 | 32 | 64 |
-| **accuracy/geoqa/difficulty 3** | 32 | 32 | 64 |
-| **reward/synthesis/difficulty 1** | 32 | 32 | 64 |
-| **reward/synthesis/difficulty 2** | 32 | 32 | 64 |
-| **reward/synthesis/difficulty 3** | 32 | 32 | 64 |
+| **Accuracy** | 47.0% | 53% | 57% |
+| **Parse success rate** | 98.33% | 99.33%| 99.33% |
+| **Average completion length** | 369 | 346 | 317 |
+| **reward_by_source/geoqa** | 0.429 ± 0.436  | 0.468 ± 0.445| 0.491 ± 0.447 |
+| **reward_by_source/synthesis** | 0.631 ± 0.444 |0.711 ± 0.420 | 0.756 ± 0.401|
+| **accuracy/geoqa/difficulty 1** | 0.5098 | 0.5490 | 0.5490 |
+| **accuracy/geoqa/difficulty 2** | 0.3594 | 0.4219 | 0.4375 |
+| **accuracy/geoqa/difficulty 3** | 0.2292 | 0.2500 | 0.3125 |
+| **accuracy/synthesis/difficulty 1** | 0.6512 | 0.7442 | 0.7209 |
+| **accuracy/synthesis/difficulty 2** | 0.5893 | 0.6250 | 0.7321 |
+| **accuracy/synthesis/difficulty 3** | 0.5263| 0.6842 | 0.7368 |
+| **accuracy/geoqa/difficulty 1** | 0.559 ± 0.450 | 0.594 ± 0.448 | 0.594 ± 0.448 |
+| **accuracy/geoqa/difficulty 2** | 0.419 ± 0.436  | 0.477 ± 0.447 | 0.492 ± 0.448|
+| **accuracy/geoqa/difficulty 3** | 0.304 ± 0.380  | 0.323 ± 0.391 | 0.381 ± 0.417 |
+| **reward/synthesis/difficulty 1** | 0.686 ± 0.429  | 0.770 ± 0.393| 0.749 ± 0.404 |
+| **reward/synthesis/difficulty 2** |0.627 ± 0.447 | 0.663 ± 0.436 | 0.757 ± 0.402 |
+| **reward/synthesis/difficulty 3** | 0.574 ± 0.449  | 0.716 ± 0.418 | 0.763 ± 0.396 |

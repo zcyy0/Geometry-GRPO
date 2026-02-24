@@ -107,7 +107,21 @@ In the figure, angle 1 = 123. Find the measure of angle 6
 ![](./assets/geo3k-train-1424-img_diagram.png)
 
 The model's states that angle 1 and angle 6 are vertically opposite angles. Vertically opposite angles are always equal. Therefore, angle 6 = angle 1 = 123. This is clearly wrong because angle 6 = 180 - angle 1. 
-Sample problem 2: 
+- Sample problem 2:
+In the given figure, point P is an external point to circle O. PA is a tangent line to circle O, with A as the point of tangency. Line PO intersects circle O at point B, and angle P is 30 degrees. If BP is 2 units long, what is the length of segment AP?
+
+![](./assets/geoqa_plus-12653.png)
+
+The model's output says "Given that PA is a tangent to the circle at point A, we know that OA is perpendicular to PA. Therefore, angle OAP is 90 degrees. Since angle P is 30 degrees, angle APO is 60 degrees". Angle P and angle APO are essentially the same angles, but the model confused them together. 
+
+- Sample problem 3:
+Consider the given figure, where AB is parallel to CD, and CE bisects angle ACD. Let's represent angle A as variable h, where h = 108°. What is the numerical value of angle BEC?
+
+![](./assets/geoqa_plus-9260.png)
+
+The model states that "since AB \parallel CD, angle BEC = angle ECD = 36 degrees". Clearly this is wrong. 
+
+The sampled problems above show the limitations of Qwen-2.5-VL-3B model, when doing mathematical reasoning, it fails to correctly identify the relationships in the geometry images and starts to hallucinate. 
 
 
 

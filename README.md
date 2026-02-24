@@ -103,7 +103,7 @@ At the end of phase 3, the baseline model and the trained model are evaluated on
 I sampled some geometry problems that the model got wrong, and found a few patterns. 
 Sample problem 1:
 In the figure, angle 1 = 123. Find the measure of angle 6
-![sample problem 1](geo3k-train-1424-img_diagram.png)
+![](./assets/geo3k-train-1424-img_diagram.png)
 The model's states that angle 1 and angle 6 are vertically opposite angles. Vertically opposite angles are always equal. Therefore, angle 6 = angle 1 = 123. This is clearly wrong because angle 6 = 180 - angle 1. 
 Sample problem 2: 
 

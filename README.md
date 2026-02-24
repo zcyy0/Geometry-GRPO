@@ -10,7 +10,7 @@ This project implements **Group Relative Policy Optimization (GRPO)** to enhance
 Unlike standard fine-tuning, this pipeline uses Reinforcement Learning (RL) to enforce verifiable "Chain of Thought" (CoT) reasoning. The training system leverages **HuggingFace TRL** for the RL loop, **LoRA** for parameter-efficient tuning, and **VLLM** for high-throughput generation during the exploration phase.
 
 **Target Benchmark:** [MathVision](https://huggingface.co/datasets/mathvision/mathvision)  
-**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [Zebra CoT Geometry](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT) & [OlympiadBench](https://huggingface.co/datasets/lmms-lab/OlympiadBench)
+**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [Zebra CoT Geometry](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT)
 
 ---
 
@@ -48,3 +48,8 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 ├── utils/
 │   └── extract_answer.py       # Regex logic for answer extraction & normalization
 └── README.md
+
+## Results
+The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. 
+Weights and Bias charts on rewards for three phases:
+![Phase 1](https://wandb.ai/shang_uy6-n-a/huggingface/runs/cmp5iflz?nw=nwusershang_uy6&panelDisplayName=train%2Frewards%2Faccuracy_reward%2Fmean&panelSectionName=train)

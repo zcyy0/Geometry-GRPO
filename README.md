@@ -48,7 +48,7 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 ├── utils/
 │   └── extract_answer.py       # Regex logic for answer extraction & normalization
 └── README.md
-
+```
 ## Results
 The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. 
 Weights and Bias charts on rewards of the three phases:

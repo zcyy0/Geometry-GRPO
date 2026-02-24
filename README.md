@@ -124,9 +124,21 @@ The model states that "since AB \parallel CD, angle BEC = angle ECD = 36 degrees
 The sampled problems above show the limitations of Qwen-2.5-VL-3B model, when doing mathematical reasoning, it fails to correctly identify the relationships in the geometry images and starts to hallucinate. 
 
 #### Pattern 2: Lack of knowledge
+The model may have latent knowledge about geometry and it failed to use such knowledge in its reasoning
 - Sample problem 1:
+can you solve this question" In the given diagram, points PA and PB are tangents to circle O at A and B, and angle P measures 70°. If point C lies on circle O, what is the measure of angle ACB?
 
-- Sample problem 2: 
+![](./assets/geoqa_plus-10210.png)
+
+The model was able to correctly calculate the angle of AOB on the minor arc and the angle of AOB on the major arc. However, it failed to use the inscribed angle theorem, and started hallucinating angle AOC is equal to angle COB, which is not necessarily true.
+
+- Sample problem 2:
+Consider the given diagram, where line segment AB has a length of 'p' units (p = 6). Point C is a point located outside of line segment AB, and the measure of angle ACB is 'q' degrees (q = 45°). The midpoints of AB and BC are. What is the maximum length of line segment MN?
+
+![](./assets/geoqa_plus-12964.png)
+
+This problem requires using the Law of Sines, but the model failed using this theorem and simply said the maximum is achieved when AC is perpendicular to AB. Although this is correct,  but the reasoning has gaps and it seems this conclusion comes out of nowhere. 
+
 
 ## Next Step: Supervised Finetuning
 Because the model lacks the visual grounding when doing reasoning, more GRPO or RL won't help. I think the next step is to do Supervised Finetuning on the model using geometry problems with reasoning steps that include visual grounding. For example, the reasoning steps should describe the spatial relationship between angles and lines, and conduct matheamtical reasoning strictly based on the visual observations. One approach is to use a more advanced model, input geoqa images and questions and ask the model to output reasoning steps following the structure such as "<see> what it observes </see><theorem> mathematical theorems to use </theorem> <think> the reasoning process </think><answer> the answer here </answer>"

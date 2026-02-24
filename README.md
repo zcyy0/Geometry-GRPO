@@ -99,8 +99,8 @@ At the end of phase 3, the baseline model and the trained model are evaluated on
 | **reward/synthesis/difficulty 2** |0.372| 0.728 | 
 | **reward/synthesis/difficulty 3** | 0.266 | 0.640|
 
-## Analysis and Next Steps
 I sampled some geometry problems that the model got wrong, and found a few patterns. 
+#### Pattern 1: Hallucination
 - Sample problem 1:
 In the figure, angle 1 = 123. Find the measure of angle 6
 
@@ -122,7 +122,11 @@ Consider the given figure, where AB is parallel to CD, and CE bisects angle ACD.
 The model states that "since AB \parallel CD, angle BEC = angle ECD = 36 degrees". Clearly this is wrong. 
 
 The sampled problems above show the limitations of Qwen-2.5-VL-3B model, when doing mathematical reasoning, it fails to correctly identify the relationships in the geometry images and starts to hallucinate. 
-The next step would be to to Supervised Fine Tuning on the model using geometry problems with reasoning steps that include visual grounding. For example, the reasoning steps should describe the spatial relationship between angles and lines, and reasoning strictly based on the relationships it observes. This forces the model to stop hallucination. 
+
+#### Pattern 2: Lack of knowledge
+
+## Next Step: Supervised Finetuning
+Because the model lacks the visual grounding when doing reasoning, more GRPO or RL won't help. I think the next step is to do Supervised Finetuning on the model using geometry problems with reasoning steps that include visual grounding. For example, the reasoning steps should describe the spatial relationship between angles and lines, and conduct matheamtical reasoning strictly based on the visual observations. One approach is to use a more advanced model, input geoqa images and questions and ask the model to output reasoning steps following the structure such as "<see> what it observes </see><theorem> mathematical theorems to use </theorem> <think> the reasoning process </think><answer> the answer here </answer>"
 
 
 

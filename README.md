@@ -101,7 +101,7 @@ At the end of phase 3, the baseline model and the trained model are evaluated on
 
 ## Analysis and Next Steps
 I sampled some geometry problems that the model got wrong, and found a few patterns. 
-Sample problem 1:
+- Sample problem 1:
 In the figure, angle 1 = 123. Find the measure of angle 6
 
 ![](./assets/geo3k-train-1424-img_diagram.png)

@@ -62,17 +62,39 @@ At the end of each phase, the model is evaluated on 300 validation examples. The
 | **Accuracy** | 47.0% | 53% | 57% |
 | **Parse success rate** | 98.33% | 99.33%| 99.33% |
 | **Average completion length** | 369 | 346 | 317 |
-| **reward_by_source/geoqa** | 0.429 ± 0.436  | 0.468 ± 0.445| 0.491 ± 0.447 |
-| **reward_by_source/synthesis** | 0.631 ± 0.444 |0.711 ± 0.420 | 0.756 ± 0.401|
+| **reward_by_source/geoqa** | 0.429 | 0.468 | 0.491 |
+| **reward_by_source/synthesis** | 0.631 |0.711 | 0.756|
 | **accuracy/geoqa/difficulty 1** | 0.5098 | 0.5490 | 0.5490 |
 | **accuracy/geoqa/difficulty 2** | 0.3594 | 0.4219 | 0.4375 |
 | **accuracy/geoqa/difficulty 3** | 0.2292 | 0.2500 | 0.3125 |
 | **accuracy/synthesis/difficulty 1** | 0.6512 | 0.7442 | 0.7209 |
 | **accuracy/synthesis/difficulty 2** | 0.5893 | 0.6250 | 0.7321 |
 | **accuracy/synthesis/difficulty 3** | 0.5263| 0.6842 | 0.7368 |
-| **accuracy/geoqa/difficulty 1** | 0.559 ± 0.450 | 0.594 ± 0.448 | 0.594 ± 0.448 |
-| **accuracy/geoqa/difficulty 2** | 0.419 ± 0.436  | 0.477 ± 0.447 | 0.492 ± 0.448|
-| **accuracy/geoqa/difficulty 3** | 0.304 ± 0.380  | 0.323 ± 0.391 | 0.381 ± 0.417 |
-| **reward/synthesis/difficulty 1** | 0.686 ± 0.429  | 0.770 ± 0.393| 0.749 ± 0.404 |
-| **reward/synthesis/difficulty 2** |0.627 ± 0.447 | 0.663 ± 0.436 | 0.757 ± 0.402 |
-| **reward/synthesis/difficulty 3** | 0.574 ± 0.449  | 0.716 ± 0.418 | 0.763 ± 0.396 |
+| **reward/geoqa/difficulty 1** | 0.559  | 0.594  | 0.594  |
+| **reward/geoqa/difficulty 2** | 0.419 | 0.477  | 0.492 |
+| **reward/geoqa/difficulty 3** | 0.304 | 0.323 | 0.381|
+| **reward/synthesis/difficulty 1** | 0.686 | 0.770 | 0.749  |
+| **reward/synthesis/difficulty 2** |0.627| 0.663 | 0.757 |
+| **reward/synthesis/difficulty 3** | 0.574 | 0.716| 0.763|
+
+At the end of phase 3, the baseline model and the trained model are evaluated on the test dataset of 1000 examples
+
+| Metric | Phase 1| Phase 2|
+| :--- | :---: | :---: |
+| **Accuracy** | 36.0% | 55.2% |
+| **parse_success_rate** | 93.0% | 98.6% |
+| **Average completion length** |270| 344 |
+| **reward_by_source/geoqa** | 0.446 | 0.484 |
+| **reward_by_source/synthesis** | 0.363 | 0.729 |
+| **accuracy/geoqa/difficulty 1** | 0.5621 | 0.5740 |
+| **accuracy/geoqa/difficulty 2** | 0.3581 | 0.4326|
+| **accuracy/geoqa/difficulty 3** | 0.2609 | 0.2733 |
+| **accuracy/synthesis/difficulty 1** |0.4167 | 0.7847 |
+| **accuracy/synthesis/difficulty 2** |0.3548| 0.6989 |
+| **accuracy/synthesis/difficulty 3** | 0.2400| 0.6000|
+| **reward/geoqa/difficulty 1** | 0.595  | 0.614  |
+| **reward/geoqa/difficulty 2** | 0.416 | 0.487  |
+| **reward/geoqa/difficulty 3** | 0.330 | 0.344 |
+| **reward/synthesis/difficulty 1** | 0.437 | 0.806|
+| **reward/synthesis/difficulty 2** |0.372| 0.728 | 
+| **reward/synthesis/difficulty 3** | 0.266 | 0.640|

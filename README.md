@@ -99,7 +99,7 @@ At the end of phase 3, the baseline model and the trained model are evaluated on
 | **reward/synthesis/difficulty 2** |0.372| 0.728 | 
 | **reward/synthesis/difficulty 3** | 0.266 | 0.640|
 
-I sampled some geometry problems that the model got wrong, and found a few patterns. 
+I sampled some geometry problems that the model got wrong, and found two patterns. 
 #### Pattern 1: Hallucination
 - Sample problem 1:
 In the figure, angle 1 = 123. Find the measure of angle 6

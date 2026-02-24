@@ -51,5 +51,6 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 
 ## Results
 The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. 
-Weights and Bias charts on rewards for three phases:
-![Phase 1](https://wandb.ai/shang_uy6-n-a/huggingface/runs/cmp5iflz?nw=nwusershang_uy6&panelDisplayName=train%2Frewards%2Faccuracy_reward%2Fmean&panelSectionName=train)
+Weights and Bias charts on rewards of the three phases:
+[Phase 1](https://wandb.ai/shang_uy6-n-a/huggingface/runs/cmp5iflz?nw=nwusershang_uy6&panelDisplayName=train%2Frewards%2Faccuracy_reward%2Fmean&panelSectionName=train)
+[Phase 2](https://wandb.ai/shang_uy6-n-a/vlm-grpo-qwen25vl3b/runs/eusdttfx?nw=nwusershang_uy6&panelDisplayName=train%2Frewards%2Faccuracy_reward%2Fmean&panelSectionName=train)

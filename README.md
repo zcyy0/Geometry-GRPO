@@ -49,7 +49,7 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 │   └── extract_answer.py       # Regex logic for answer extraction & normalization
 └── README.md
 ```
-## Experiments & Results
+## Experiments & Results Analysis
 The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. Each phase trains on 1 epoch only. I experimented with training for more than 1 epoch for each phase, and found out that the accuracy and reward did not further improve after 1 epoch. This is likely because the model recognizes the problems it has seen in the first epoch and starts to shortcut the reasoning and directly output answers. 
 Weights and Bias charts on rewards of the three phases shows the model keeps improving over the three phases.
 | Phase 1 | Phase 2 | Phase 3 |

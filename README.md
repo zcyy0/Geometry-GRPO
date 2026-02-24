@@ -55,3 +55,23 @@ Weights and Bias charts on rewards of the three phases:
 | Phase 1 | Phase 2 | Phase 3 |
 | :---: | :---: | :---: |
 | ![Run 1](./assets/phase1_accuracy_reward_mean.png) | ![Run 2](./assets/phase2_accuracy_reward_mean.png) | ![Run 3](./assets/phase3_accuracy_reward_mean.png) |
+
+At the end of each phase, the model is evaluated on 300 validation examples. The results are as following:
+| Metric | Phase 1| Phase 2| Phase 3|
+| :--- | :---: | :---: | :---: |
+| **Accuracy** | 89.4% | **91.2%** | 90.1% |
+| **Parse success rate** | 0.245 | 0.210 | **0.198** |
+| **Average completion length** | 50 | 42 | 45 |
+| **reward_by_source/geoqa** | 1e-4 | 5e-5 | 1e-4 |
+| **accuracy/geoqa/difficulty 1** | 32 | 32 | 64 |
+| **accuracy/geoqa/difficulty 2** | 32 | 32 | 64 |
+| **accuracy/geoqa/difficulty 3** | 32 | 32 | 64 |
+| **accuracy/synthesis/difficulty 1** | 32 | 32 | 64 |
+| **accuracy/synthesis/difficulty 2** | 32 | 32 | 64 |
+| **accuracy/synthesis/difficulty 3** | 32 | 32 | 64 |
+| **accuracy/geoqa/difficulty 1** | 32 | 32 | 64 |
+| **accuracy/geoqa/difficulty 2** | 32 | 32 | 64 |
+| **accuracy/geoqa/difficulty 3** | 32 | 32 | 64 |
+| **reward/synthesis/difficulty 1** | 32 | 32 | 64 |
+| **reward/synthesis/difficulty 2** | 32 | 32 | 64 |
+| **reward/synthesis/difficulty 3** | 32 | 32 | 64 |

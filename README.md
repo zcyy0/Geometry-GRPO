@@ -141,7 +141,7 @@ This problem requires using the Law of Sines, but the model failed using this th
 
 
 ## Next Step: Supervised Finetuning
-Because the model lacks the visual grounding when doing reasoning, more GRPO or RL won't help. I think the next step is to do Supervised Finetuning on the model using geometry problems with reasoning steps that include visual grounding. For example, the reasoning steps should describe the spatial relationship between angles and lines, and conduct matheamtical reasoning strictly based on the visual observations. One approach is to use a more advanced model, input geoqa images and questions and ask the model to output reasoning steps following the structure such as "<see> what it observes </see><theorem> mathematical theorems to use </theorem> <think> the reasoning process </think><answer> the answer here </answer>"
+Based on the two patterns found, the solutions are clear: we need the model to have visual grounding and cite theorems in its reasoning process. Instead of more GRPO, a better approach should be Supervised Finetuning. The training data should contain reasoning steps should include visual grounding and theorems used, and the reasoning steps can look like this: "<see> what it observes </see><theorem> mathematical theorems to use </theorem> <think> the reasoning process </think><answer> the answer here </answer>". The current plan is to select geoqa questions that the model got wrong, and input the images and questions to a more advanced model and ask it to output the reasoning steps following the format above, and use these reasoning steps to train the model. When the model learns to output the correct format, I can keep training the model using GRPO on more difficult problems such as OlympiadBench.
 
 
 

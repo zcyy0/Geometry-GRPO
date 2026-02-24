@@ -56,7 +56,7 @@ Weights and Bias charts on rewards of the three phases shows the model keeps imp
 | :---: | :---: | :---: |
 | ![Run 1](./assets/phase1_accuracy_reward_mean.png) | ![Run 2](./assets/phase2_accuracy_reward_mean.png) | ![Run 3](./assets/phase3_accuracy_reward_mean.png) |
 
-At the end of each phase, the model is evaluated on 300 validation examples. The results are as following. It shows that the model learns faster on the synthesis data. This makes sense because synthesis problems are easier: the model needs to recognize a function graph and write the function equations, or calculate the volume of 3D shapes, whereas geometry problems requires the model to recognize spatial relatioships and details in geometric shapes. 
+At the end of each phase, the model is evaluated on 300 validation examples. The results are as following. It shows that the model learns faster on the synthesis data. This makes sense because synthesis problems are easier: the model needs to recognize a function graph and write the function equations, or calculate the volume of 3D shapes, whereas geometry problems requires the model to recognize spatial relatioships and details in geometric shapes. In Phase 3, I drastically reduced the number of synthesis examples to focus on geometry problems (about 10% synthesis problems and 90% geometry problems), and interestingly, the accuracy on synthesis problems kept improving. 
 | Metric | Phase 1| Phase 2| Phase 3|
 | :--- | :---: | :---: | :---: |
 | **Accuracy** | 47.0% | 53% | 57% |

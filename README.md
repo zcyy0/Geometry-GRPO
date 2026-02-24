@@ -49,14 +49,14 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 │   └── extract_answer.py       # Regex logic for answer extraction & normalization
 └── README.md
 ```
-## Results
-The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. 
-Weights and Bias charts on rewards of the three phases:
+## Experiments & Results
+The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. Each phase trains on 1 epoch only. I experimented with training for more than 1 epoch for each phase, and found out that the accuracy and reward did not further improve after 1 epoch. This is likely because the model recognizes the problems it has seen in the first epoch and starts to shortcut the reasoning and directly output answers. 
+Weights and Bias charts on rewards of the three phases shows the model keeps improving over the three phases.
 | Phase 1 | Phase 2 | Phase 3 |
 | :---: | :---: | :---: |
 | ![Run 1](./assets/phase1_accuracy_reward_mean.png) | ![Run 2](./assets/phase2_accuracy_reward_mean.png) | ![Run 3](./assets/phase3_accuracy_reward_mean.png) |
 
-At the end of each phase, the model is evaluated on 300 validation examples. The results are as following:
+At the end of each phase, the model is evaluated on 300 validation examples. The results are as following. It shows that the model learns faster on the synthesis data. This makes sense because synthesis problems are easier: the model needs to recognize a function graph and write the function equations, or calculate the volume of 3D shapes, whereas geometry problems requires the model to recognize spatial relatioships and details in geometric shapes. 
 | Metric | Phase 1| Phase 2| Phase 3|
 | :--- | :---: | :---: | :---: |
 | **Accuracy** | 47.0% | 53% | 57% |
@@ -77,7 +77,7 @@ At the end of each phase, the model is evaluated on 300 validation examples. The
 | **reward/synthesis/difficulty 2** |0.627| 0.663 | 0.757 |
 | **reward/synthesis/difficulty 3** | 0.574 | 0.716| 0.763|
 
-At the end of phase 3, the baseline model and the trained model are evaluated on the test dataset of 1000 examples
+At the end of phase 3, the baseline model and the trained model are evaluated on the test dataset of 1000 examples. This further confirms that the model learns synthesis data better. 
 
 | Metric | Phase 1| Phase 2|
 | :--- | :---: | :---: |
@@ -98,3 +98,6 @@ At the end of phase 3, the baseline model and the trained model are evaluated on
 | **reward/synthesis/difficulty 1** | 0.437 | 0.806|
 | **reward/synthesis/difficulty 2** |0.372| 0.728 | 
 | **reward/synthesis/difficulty 3** | 0.266 | 0.640|
+
+## Analysis and Next Steps
+

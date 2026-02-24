@@ -54,4 +54,4 @@ The curriculum learning is divided into three phases: phase 1 trains on all diff
 Weights and Bias charts on rewards of the three phases:
 | Phase 1 | Phase 2 | Phase 3 |
 | :---: | :---: | :---: |
-| ![Run 1](./assets/phase1_accuracy_reward_mean.png) | ![Run 2](./assets/phase1_accuracy_reward_mean.png) | ![Run 3](./assets/phase1_accuracy_reward_mean.png) |
+| ![Run 1](./assets/phase1_accuracy_reward_mean.png) | ![Run 2](./assets/phase2_accuracy_reward_mean.png) | ![Run 3](./assets/phase3_accuracy_reward_mean.png) |

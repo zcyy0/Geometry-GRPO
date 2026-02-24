@@ -52,4 +52,6 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
 ## Results
 The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. 
 Weights and Bias charts on rewards of the three phases:
-<iframe src="https://wandb.ai/shang_uy6-n-a/vlm-grpo-qwen25vl3b/reports/GRPO-Run-Rewards--VmlldzoxNjAxNTYzNA" style="border:none;height:1024px;width:100%">
+| Phase 1 | Phase 2 | Phase 3 |
+| :---: | :---: | :---: |
+| ![Run 1](./assets/phase1_accuracy_reward_mean.png) | ![Run 2](./assets/phase1_accuracy_reward_mean.png) | ![Run 3](./assets/phase1_accuracy_reward_mean.png) |

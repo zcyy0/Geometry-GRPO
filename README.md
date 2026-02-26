@@ -1,20 +1,19 @@
-# 📐 Visual Geometry Reasoning with Qwen2.5-VL & GRPO
+# 📐 Visual Geometry Reasoning using Qwen2.5-VL with GRPO and SFT
 
 ![Status](https://img.shields.io/badge/Status-Training_In_Progress-yellow)
 ![Model](https://img.shields.io/badge/Base_Model-Qwen_2.5_VL_3B-green)
 ![Tech](https://img.shields.io/badge/Stack-TRL_%7C_VLLM_%7C_LoRA-blue)
 
 ## 📌 Project Overview
-This project implements **Group Relative Policy Optimization (GRPO)** to enhance **visual geometry reasoning** in the **Qwen2.5-VL-3B-Instruct** model. 
-
-Unlike standard fine-tuning, this pipeline uses Reinforcement Learning (RL) to enforce verifiable "Chain of Thought" (CoT) reasoning. The training system leverages **HuggingFace TRL** for the RL loop, **LoRA** for parameter-efficient tuning, and **VLLM** for high-throughput generation during the exploration phase.
+This project implements **Group Relative Policy Optimization (GRPO)** and **Supervised Finetuning** to enhance **visual geometry reasoning** in the **Qwen2.5-VL-3B-Instruct** model. 
+The training system leverages **HuggingFace TRL** for the RL loop and SFT, **LoRA** for parameter-efficient tuning, and **VLLM** for high-throughput generation during the exploration phase.
 
 **Target Benchmark:** [MathVision](https://huggingface.co/datasets/mathvision/mathvision)  
-**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [Zebra CoT Geometry](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT)
+**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [Zebra CoT Geometry](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT) & [OlympiadBench](https://huggingface.co/datasets/Hothan/OlympiadBench)
 
 ---
 
-## 🔬 Methodology: Structure-Aware Reward Modeling
+## Stage 1 GRPO (Completed)
 The goal is to bootstrap the model's reasoning capabilities by strictly enforcing a structured output format:
 `<think>...reasoning steps...</think><answer>...final answer...</answer>`
 
@@ -25,7 +24,7 @@ R(y) = 1.0 if if Correct Answer AND Strict Format; 0.1 if Incorrect Answer BUT S
 
 ---
 
-## 🛠️ Data Engineering & Curriculum
+### Data Engineering & Curriculum
 This project moves beyond simple dataset loading by implementing a **Curriculum Learning** strategy based on problem complexity.
 
 ### Data Processing Pipeline
@@ -36,20 +35,7 @@ This project moves beyond simple dataset loading by implementing a **Curriculum 
     * **Tier 2 (Medium):** 30%-70% difficulty
     * **Tier 3 (Hard):** Top 30% difficulty
 
-### Project Structure
-```bash
-├── train/
-│   └── train_grpo.py           # Main RL training loop (TRL + VLLM integration)
-├── scripts/
-│   ├── build_splits.py         # Stratified splitting (Train: 5k, Dev: 300, Test: 1k)
-│   ├── process_geoqa_data.py   # Multiple-choice to Open-ended conversion
-│   └── process_zebra_cot_geometry_data.py    # Geometry dataset cleaning
-│   └── process_synthesis_data.py
-├── utils/
-│   └── extract_answer.py       # Regex logic for answer extraction & normalization
-└── README.md
-```
-## Experiments & Results Analysis
+### Experiments & Results Analysis
 The curriculum learning is divided into three phases: phase 1 trains on all difficulty 1 questions; phase 2 difficulty 2 questions and phase 3 difficulty 3 questions. Each phase trains on 1 epoch only. I experimented with training for more than 1 epoch for each phase, and found out that the accuracy and reward did not further improve after 1 epoch. This is likely because the model recognizes the problems it has seen in the first epoch and starts to shortcut the reasoning and directly output answers. 
 Weights and Bias charts on rewards of the three phases shows the model keeps improving over the three phases.
 | Phase 1 | Phase 2 | Phase 3 |
@@ -140,8 +126,8 @@ Consider the given diagram, where line segment AB has a length of 'p' units (p =
 This problem requires using the Law of Sines, but the model failed using this theorem and simply said the maximum is achieved when AC is perpendicular to AB. Although this is correct,  but the reasoning has gaps and it seems this conclusion comes out of nowhere. 
 
 
-## Next Step: Supervised Finetuning
-Based on the two patterns found, the solutions are clear: we need the model to have visual grounding and cite theorems in its reasoning process. Instead of more GRPO, a better approach should be Supervised Finetuning. The training data should contain reasoning steps should include visual grounding and theorems used, and the reasoning steps can look like this: "<see> what it observes </see><theorem> mathematical theorems to use </theorem> <think> the reasoning process </think><answer> the answer here </answer>". The current plan is to select geoqa questions that the model got wrong, and input the images and questions to a more advanced model and ask it to output the reasoning steps following the format above, and use these reasoning steps to train the model. When the model learns to output the correct format, I can keep training the model using GRPO on more difficult problems such as OlympiadBench.
+## Stage 2: Supervised Finetuning (In progress)
+Based on the two patterns found, the solutions are clear: we need the model to have visual grounding and cite theorems. Instead of more GRPO, a better approach should be Supervised Finetuning. 
 
 
 

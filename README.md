@@ -69,6 +69,8 @@ Model's accuracy broken down by problem type (ordered in ascending order):
 
 By looking at individual problems that the model was wrong on, I have found  failure patterns:
 #### 1. Visual-Semantic Misattribution
+example 1: question: BD bisects angle ABC. Find the measure of angle DBC.
+
 
 #### 2. Visual Hallucination
 

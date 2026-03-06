@@ -17,6 +17,7 @@ CASIA-PGPS9K has 9,022 total problems with 30 different problem types. The bigge
 - Training data: 7,500 problems (3,311 unique diagrams)
 - Validation data: 514 problems (217 unique diagrams)
 - Test data: 1,007 problems (440 unique diagrams)
+
 I also did additional data processing including the following:
 - Some of the original questions use latex expressions. These questions are converted to natural language questions
 - The structural and semantic clauses are written in a special annotation. I converted these clauses to functional annotation.

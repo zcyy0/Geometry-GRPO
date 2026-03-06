@@ -122,7 +122,4 @@ Based on the analysis above, the model is weak on the problem types such as Angl
 reward function design: 
 
 ## Stage 4 Benchmark Evaluation
-GRPO (Completed)
-The goal is to bootstrap the model's reasoning capabilities by strictly enforcing a structured output format:
-`<think>...reasoning steps...</think><answer>...final answer...</answer>`
 

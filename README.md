@@ -24,7 +24,8 @@ I also did additional data processing including the following:
 - The ground truth answers in CASIA-PGPS9K are float numbers to three decimals. I wrote a util script that leverages latex2sympy2 library to compare decimal numbers v.s. fractional numbers and answers with symbols such as \sqrt, \pi etc.
 
 ## Stage 1 Baseline Evaluation (Completed)
-- Prompt the model to output solution in <think>...</think><answer>...</answer> format
+To evaluate the baseline model:
+- Prompt the model to output solution in \<think>...\</think>\<answer>...\</answer> format
 - Utilize  library for answer comparison
 - Evaluated baseline model's accuracy on both validation data and test data.
 

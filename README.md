@@ -83,9 +83,15 @@ The model correctly recognizes that "because VWXY is a rhombus, all sides are eq
 
 
 #### 3. Theorem misapplication (or blindness)
+example question: In triangle PQR, PS=8, QS=14. Find RS.
+![](./assets/prob_5734.png)
 
+The model does not know geometric mean theorem and tried to use Pythagorean theorem to solve the question, and got the wrong answer
+
+The failure analysis above shows that the model needs to learn visual grounding and geometry theorems to improve its geometry problem solving ability. SFT is the best option. 
 
 ## Stage 2 SFT (In Progress)
+
 
 ## Stage 3 GRPO
 

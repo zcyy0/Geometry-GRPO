@@ -69,14 +69,16 @@ Model's accuracy broken down by problem type (ordered in ascending order):
 
 By looking at individual problems that the model was wrong on, I have found  failure patterns:
 
-#### 1. Visual Hallucination
+#### 1. Visual hallucination
 exampl question: BD bisects angle ABC. Find the measure of angle DBC.
 ![](./assets/prob_3490.png)
+
 The model correctly identifies 2x+7 and 4x-9 in the image, but hallucinate that there is a triangle in the image, and states "The sum of angles in a triangle is 180 degrees. Therefore, angle ABD + angle CBD + angle DBC = 180"
 
-#### 1. Visual-Semantic Misattribution
+#### 1. Geometry relationship confusion
 example question: VWXY is a rhombus. Find angle WXY if angle WVY = 4b+10 and angle XZW = 10b-5
 ![](./assets/prob_7718.png)
+
 The model correctly recognizes that "because VWXY is a rhombus, all sides are equal" and "The diagonals of a rhombus bisect each other at right angles", but it incorrectly identifies the relationship between angles. It states "angle WVY and angle XZW are complementary angles"
 
 

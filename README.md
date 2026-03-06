@@ -21,12 +21,51 @@ CASIA-PGPS9K has 9,022 total problems with 30 different problem types. The bigge
 I also did additional data processing including the following:
 - Some of the original questions use latex expressions. These questions are converted to natural language questions
 - The structural and semantic clauses are written in a special annotation. I converted these clauses to functional annotation.
-- The ground truth answers in CASIA-PGPS9K are float numbers to three decimals. I wrote a script that compares decimal numbers v.s. fractional numbers and answers with symbols such as \sqrt, \pi etc.
+- The ground truth answers in CASIA-PGPS9K are float numbers to three decimals. I wrote a util script that leverages latex2sympy2 library to compare decimal numbers v.s. fractional numbers and answers with symbols such as \sqrt, \pi etc.
 
 ## Stage 1 Baseline Evaluation (Completed)
 - Prompt the model to output solution in <think>...</think><answer>...</answer> format
-- Utilize latex2sympy2 library for answer comparison
-- Evaluated baseline model's accuracy  
+- Utilize  library for answer comparison
+- Evaluated baseline model's accuracy on both validation data and test data.
+
+Results:
+- Validation data: Overall Accuracy: 114/514 (22.2%); Parse Success Rate: 83.5%
+- Test data: Overall Accuracy: 226/1007 (22.4%); Parse success rate: 83.8%
+
+Model's accuracy broken down by problem type (ordered in ascending order):
+| Problem Type | Accuracy |
+|---|---|---|
+| Angle Bisector of Triangle | 0% |
+| Geometric Mean| 0% |
+| Polygon Angle| 0% |
+| Circle Chord| 5% |
+| Secant Angle  | 6% |
+| Secant Segment   | 7% |
+|Tangent    | 8% |
+|  Inscribed Angle| 10% |
+| Rhombus and Square| 14% |
+| Median of Triangle| 14% |
+| Similarity in Parallel Line| 15% |
+| Perpendicular Bisector of Triangle| 20% |
+| Isosceles (Equilateral) Triangle| 21% |
+| Trigonometry| 22% |
+| Parallelogram| 25% |
+| Polygon Congruence | 25% |
+| Pythagorean Theorem| 25% |
+| Midsegment of Triangle| 27% |
+| Angle Relation in Triangle| 29% |
+| Trapezoid and Kite| 29% |
+| Circumference and Area of Circle| 29% |
+| Parallel Lines    | 31% |
+| Line Segment  | 33% |
+| Perimeter and Area of Polygon| 33% |
+|  Polygon Similarity| 35% |
+| Arc Angle | 36% |
+| Perimeter and Area of Quadrangle| 37% |
+| Rectangle | 38% |
+| Angle| 39% |
+| Perimeter and Area of Triangle| 44% |
+
 
 ## Stage 2 SFT (In Progress)
 

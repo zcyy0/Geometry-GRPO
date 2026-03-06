@@ -67,6 +67,13 @@ Model's accuracy broken down by problem type (ordered in ascending order):
 | Angle| 39% |
 | Perimeter and Area of Triangle| 44% |
 
+By looking at individual problems that the model was wrong on, I have found  failure patterns:
+#### 1. Visual-Semantic Misattribution
+
+#### 2. Visual Hallucination
+
+#### 3. Theorem misapplication (or blindness)
+
 
 ## Stage 2 SFT (In Progress)
 

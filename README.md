@@ -34,7 +34,7 @@ Results:
 
 Model's accuracy broken down by problem type (ordered in ascending order):
 | Problem Type | Accuracy |
-|---|---|---|
+|---|---|
 | Angle Bisector of Triangle | 0% |
 | Geometric Mean| 0% |
 | Polygon Angle| 0% |

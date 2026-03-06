@@ -8,12 +8,31 @@
 This project implements **Group Relative Policy Optimization (GRPO)** and **Supervised Finetuning** to enhance **visual geometry reasoning** in the **Qwen2.5-VL-3B-Instruct** model. 
 The training system leverages **HuggingFace TRL** for the RL loop and SFT, **LoRA** for parameter-efficient tuning, and **VLLM** for high-throughput generation during the exploration phase.
 
-**Target Benchmark:** [MathVision](https://huggingface.co/datasets/mathvision/mathvision)  
-**Training Data:** [VLAA-Thinking (GeoQA/Synthesis)](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) & [OlympiadBench](https://huggingface.co/datasets/Hothan/OlympiadBench)
+**Target Benchmark:** [MathVista](https://mathvista.github.io/)  
+**Training Data:** [CASIA-PGPS9K](https://nlpr.ia.ac.cn/databases/CASIA-PGPS9K/index.html)
 
 ---
+## Stage 0 Data Split and processing (Completed)
+CASIA-PGPS9K has 9,022 total problems with 30 different problem types. The biggest highlight of this dataset is it includes structural and semantic clauses, which are the extracted geometric properties from the images. This can be very helpful for improving model's visual grounding capability. Some questions share the same geometry images. To avoid data leakage, I used group-level split: all the questions that share the same image belong to the same split. At the same, I made sure the training, validation and test splits have similar ratios of problem types. The split result is:
+- Training data: 7,500 problems (3,311 unique diagrams)
+- Validation data: 514 problems (217 unique diagrams)
+- Test data: 1,007 problems (440 unique diagrams)
+I also did additional data processing including the following:
+- Some of the original questions use latex expressions. These questions are converted to natural language questions
+- The structural and semantic clauses are written in a special annotation. I converted these clauses to functional annotation.
+- The ground truth answers in CASIA-PGPS9K are float numbers to three decimals. I wrote a script that compares decimal numbers v.s. fractional numbers and answers with symbols such as \sqrt, \pi etc.
 
-## Stage 1 GRPO (Completed)
+## Stage 1 Baseline Evaluation (Completed)
+- Prompt the model to output solution in <think>...</think><answer>...</answer> format
+- Utilize latex2sympy2 library for answer comparison
+- Evaluated baseline model's accuracy  
+
+## Stage 2 SFT (In Progress)
+
+## Stage 3 GRPO
+
+## Stage 4 Benchmark Evaluation
+GRPO (Completed)
 The goal is to bootstrap the model's reasoning capabilities by strictly enforcing a structured output format:
 `<think>...reasoning steps...</think><answer>...final answer...</answer>`
 

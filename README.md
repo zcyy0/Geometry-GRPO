@@ -93,15 +93,17 @@ The failure analysis above shows that the model needs to learn visual grounding 
 ## Stage 2 SFT (Completed)
 To address the failure patterns above, I used 1500 training examples and for each example, train the model on 3 tasks:
 - task 1: give the model geometry image, and prompt it to output a list of visual facts
-- task 2: give the model the question text and a list of gold visual facts, prompt the model to output thinking steps and final answer in the \<think>...\</think>\<answer>...\</answer> format. The model should use the visual facts and apply relevant theorems.
-- task 3: give the model the image and the question text, prompt the model to output thinking steps and final answer in the \<think>...\</think>\<answer>...\</answer> format. The model should output visual facts on its own and apply relevant theorems.
+- task 2: give the model the question text and a list of gold visual facts, prompt the model to output thinking steps and final answer in the \<think>step 1:..., step 2:...\</think>\<answer>...\</answer> format. The model should use the visual facts and apply relevant theorems.
+- task 3: give the model the image and the question text, prompt the model to output thinking steps and final answer in the \<think>step 1:..., step 2:...\</think>\<answer>...\</answer> format. The model should output visual facts on its own and apply relevant theorems.
 
 The SFT ran for 2 epochs to avoid overfitting. Based on the analysis in stage 1, the model is weak on the problem types such as Angle Bisector of Triangle, Geometric Mean, Polygon Angle, Circle Chord, Secant Angle, Secant Segment, Tangent, and Inscribed Angle. I used stratified sampling to increase the ratio of these problem types in the SFT training data. 
 
 The evaluation result on the validation dataset shows:
-- for task 1: 
+- for task 1: format compliance rate is 98.2%. Average number of visual fact is 36.7 vs 8 for gold. This is due to 5.3% of the examples have looping problems, which inflate the average number of facts. The rest 94.7% of examples have median 8 facts.
+- for task 2: answer accuracy 19.2%. Format compliance rate 87.3%
+- for tasks 3: answer accuracy 17.2%. Format compliance rate 85.9%. 
 
-
+The 17.2% answer accuracy is slightly lower than 22% accuracy of the baseline model. This is because we enforce the model to follow "step 1, step 2 ..." format in <think> tags, and we also ask the model to output visual facts and apply theorems in its reasoning steps. 
 
 
 ideally we would want to teach the model to think in the following format

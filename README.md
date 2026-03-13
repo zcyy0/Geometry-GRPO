@@ -97,6 +97,8 @@ To address the failure patterns above, I used 1500 training examples and for eac
 - task 3: give the model the image and the question text, prompt the model to output thinking steps and final answer in the \<think>step 1:..., step 2:...\</think>\<answer>...\</answer> format. The model should output visual facts on its own and apply relevant theorems.
 
 The SFT ran for 2 epochs to avoid overfitting. Based on the analysis in stage 1, the model is weak on the problem types such as Angle Bisector of Triangle, Geometric Mean, Polygon Angle, Circle Chord, Secant Angle, Secant Segment, Tangent, and Inscribed Angle. I used stratified sampling to increase the ratio of these problem types in the SFT training data. 
+The loss curve and mean token accuracy shows the model is improving 
+![](./assets/sft_loss.png)
 
 The evaluation result on the validation dataset shows:
 - for task 1: format compliance rate is 98.2%. Average number of visual fact is 36.7 vs 8 for gold. This is due to 5.3% of the examples have looping problems, which inflate the average number of facts. The rest 94.7% of examples have median 8 facts.

@@ -90,8 +90,21 @@ The model does not know geometric mean theorem and tried to use Pythagorean theo
 
 The failure analysis above shows that the model needs to learn visual grounding and geometry theorems to improve its geometry problem solving ability. SFT is the best option. 
 
-## Stage 2 SFT (In Progress)
-To address the failure patterns above, we want to teach the model to think in the following format
+## Stage 2 SFT (Completed)
+To address the failure patterns above, I used 1500 training examples and for each example, train the model on 3 tasks:
+- task 1: give the model geometry image, and prompt it to output a list of visual facts
+- task 2: give the model the question text and a list of gold visual facts, prompt the model to output thinking steps and final answer in the \<think>...\</think>\<answer>...\</answer> format. The model should use the visual facts and apply relevant theorems.
+- task 3: give the model the image and the question text, prompt the model to output thinking steps and final answer in the \<think>...\</think>\<answer>...\</answer> format. The model should output visual facts on its own and apply relevant theorems.
+
+The SFT ran for 2 epochs to avoid overfitting. Based on the analysis in stage 1, the model is weak on the problem types such as Angle Bisector of Triangle, Geometric Mean, Polygon Angle, Circle Chord, Secant Angle, Secant Segment, Tangent, and Inscribed Angle. I used stratified sampling to increase the ratio of these problem types in the SFT training data. 
+
+The evaluation result on the validation dataset shows:
+- for task 1: 
+
+
+
+
+ideally we would want to teach the model to think in the following format
 ```
 <think>
 <facts>
@@ -110,15 +123,10 @@ step 3: [T2]
 </think>
 <answer></answer>
 ```
-We ask the model to generate the reasoning in steps (step 1, step 2.. etc.) and explicitly use the facts ([F1][F2] ...) and theorems ([T1][T2]..) in the reasoning steps. 
+But this is too much for a 3B model to handle. I tried this approach and the accuracy on validation data dropped to 9%, and the format compliance rate was only 53%. This is likely formatting tax. 
 
-I used Gemini 2.5 Pro to generate the thinking trace in the above format, and applied rejectio sampling to filter out the examples where Gemini 2.5 Pro had incorrect answers.
 
-The main goal of this phase is to teach the theorems to the model and enforce the format so that the model outputs facts and theorems before reasoning. So I plan to use ~1500 examples for SFT and run for 1-2 epochs.
-
-Based on the analysis above, the model is weak on the problem types such as Angle Bisector of Triangle, Geometric Mean, Polygon Angle, Circle Chord, Secant Angle, Secant Segment, Tangent, and Inscribed Angle. I plan to use stratified sampling to increase the ratio of these problem types in the SFT training data.
-
-## Stage 3 GRPO
+## Stage 3 GRPO (In Progress)
 reward function design: 
 
 ## Stage 4 Benchmark Evaluation

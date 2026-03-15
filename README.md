@@ -69,20 +69,20 @@ Model's accuracy broken down by problem type (ordered in ascending order):
 
 By looking at individual problems that the model was wrong on, I have found  failure patterns:
 
-#### 1. Visual hallucination
+### 1. Visual hallucination
 exampl question: BD bisects angle ABC. Find the measure of angle DBC.
 ![](./assets/prob_3490.png)
 
 The model correctly identifies 2x+7 and 4x-9 in the image, but hallucinate that there is a triangle in the image, and states "The sum of angles in a triangle is 180 degrees. Therefore, angle ABD + angle CBD + angle DBC = 180"
 
-#### 1. Geometry relationship confusion
+### 1. Geometry relationship confusion
 example question: VWXY is a rhombus. Find angle WXY if angle WVY = 4b+10 and angle XZW = 10b-5
 ![](./assets/prob_7718.png)
 
 The model correctly recognizes that "because VWXY is a rhombus, all sides are equal" and "The diagonals of a rhombus bisect each other at right angles", but it incorrectly identifies the relationship between angles. It states "angle WVY and angle XZW are complementary angles"
 
 
-#### 3. Theorem misapplication (or blindness)
+### 3. Theorem misapplication (or blindness)
 example question: In triangle PQR, PS=8, QS=14. Find RS.
 ![](./assets/prob_5734.png)
 
@@ -101,7 +101,7 @@ The loss curve and mean token accuracy shows the model is improving
 ![](./assets/sft_chart.png)
 
 The evaluation result on the validation dataset shows:
-#### accuracy and format compliance:
+### accuracy and format compliance:
 | Metric | Baseline | SFT (ckpt-564) | Delta |
 |---|:---:|:---:|:---:|
 | **Reasoning accuracy** | 23.6% (121/513) | 19.9% (102/513) | -3.7% |
@@ -111,7 +111,7 @@ The evaluation result on the validation dataset shows:
 | End-to-end format compliance | 0.0% | 86.4% | +86.4% |
 | End-to-end step numbering | 0.0% | 87.1% | +87.1% |
 
-#### visual grounding
+### visual grounding
 | Metric | Baseline | SFT (ckpt-564) | Delta |
 |---|:---:|:---:|:---:|
 | Format compliance | 92.4% | 98.6% | +6.2% |
@@ -119,22 +119,22 @@ The evaluation result on the validation dataset shows:
 | Facts within ±3 of gold | 276/513 (53.8%) | 437/513 (85.2%) | +31.4% |
 | Median output tokens | 146 | 72 | -50.7% |
 
-#### output token length
+### output token length
 | Task | Baseline (median) | SFT (median) |
 |---|:---:|:---:|
 | Visual grounding | 146 | 72 |
 | Reasoning | 270 | 509 |
 | End-to-end | 239 | 445 |
 
-#### analysis
-1. SFT dramatically improves format compliance at the cost of accuracy
+### analysis
+#### 1. SFT dramatically improves format compliance at the cost of accuracy
 
 The baseline model never produces the target structured format (`<think>Step 1:...Step 2:...</think><answer>...</answer>`), achieving 0% format compliance. The SFT checkpoint produces correctly formatted output ~84-87% of the time. However, this comes with a 2-4% accuracy drop across reasoning and end-to-end tasks.
 
-2. Visual grounding is substantially better after SFT
+#### 2. Visual grounding is substantially better after SFT
 The baseline severely over-generates facts (mean 120 vs gold 8), often getting stuck in repetition loops that produce thousands of repeated tokens. The SFT model is much more calibrated (mean 47, median matching gold at 8), with 85% of predictions within ±3 of the gold fact count vs 54% for baseline.
 
-3. The accuracy changes are not uniform — the two models have meaningful complementarity:
+#### 3. The accuracy changes are not uniform — the two models have meaningful complementarity:
 **Reasoning task:**
 | | Baseline correct | Baseline wrong |
 |---|:---:|:---:|
@@ -147,7 +147,7 @@ The baseline severely over-generates facts (mean 120 vs gold 8), often getting s
 | **SFT correct** | 42 | 51 |
 | **SFT wrong** | 63 | 357 |
 
-4. Accuracy changes are driven by response length, not problem complexity
+#### 4. Accuracy changes are driven by response length, not problem complexity
 Quartile analysis by problem complexity (number of facts, variables, structural elements) showed no systematic trend where SFT performs better on more complex problems. Instead, the key predictor is **SFT response length**:
 
 | Category | SFT median tokens | SFT mean tokens |
@@ -159,8 +159,7 @@ Quartile analysis by problem complexity (number of facts, variables, structural 
 - When SFT produces a **short, focused response** (~400-500 tokens), it tends to reason correctly.
 - When SFT produces a **long response** (~1,800+ tokens), it often spirals into repetitive steps, contradictions, or hits the 8K token limit (8 of 62 lost problems).
 
-#### sidenote
-
+### an alternative approach
 I also tried training the model in the following reponse format:
 ```
 <think>
@@ -180,7 +179,7 @@ step 3: [T2]
 </think>
 <answer></answer>
 ```
-But this is too much for a 3B model to handle. I tried this approach and the accuracy on validation data dropped to 9%, and the format compliance rate was only 53%. This is likely formatting tax. 
+But this is too much for a 3B model to handle. I tried this approach and the accuracy on validation data dropped to 9%, and the format compliance rate was only 53%. 
 
 
 ## Stage 3 GRPO (In Progress)
